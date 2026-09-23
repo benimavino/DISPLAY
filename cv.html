@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Papan Pemberitahuan Digital</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Header Aplikasi */
+        header {
+            background: linear-gradient(135deg, #1f4068, #162447);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid #e43f5a;
+            height: 70px;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-placeholder {
+            width: 40px;
+            height: 40px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #162447;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        header h1 {
+            font-size: 24px;
+            letter-spacing: 1px;
+        }
+
+        .datetime {
+            font-size: 16px;
+            font-weight: 500;
+            color: #cbd5e1;
+        }
+
+        /* Main Layout Split Screen */
+        main {
+            display: flex;
+            flex: 1;
+            height: calc(100vh - 120px); /* Dikurangi header dan running text */
+        }
+
+        /* Sisi Kiri: Video YouTube */
+        .video-container {
+            flex: 1.2; /* Sedikit lebih lebar untuk video */
+            background-color: #000000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Sisi Kanan: Panel Pemberitahuan */
+        .notification-panel {
+            flex: 0.8;
+            background-color: #1a1a2e;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overflow-y: auto;
+            border-left: 2px solid #1f4068;
+        }
+
+        .panel-title {
+            font-size: 22px;
+            color: #e43f5a;
+            border-bottom: 2px solid #e43f5a;
+            padding-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .info-card {
+            background-color: #162447;
+            border-left: 5px solid #00b4d8;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            transition: transform 0.2s;
+        }
+
+        .info-card:hover {
+            transform: translateX(5px);
+        }
+
+        .info-card.important {
+            border-left-color: #e43f5a;
+            background-color: #251c2e;
+        }
+
+        .card-tag {
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .tag-info { background-color: #00b4d8; color: #fff; }
+        .tag-important { background-color: #e43f5a; color: #fff; }
+
+        .info-card h3 {
+            font-size: 18px;
+            margin-bottom: 6px;
+            color: #ffffff;
+        }
+
+        .info-card p {
+            font-size: 14px;
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        /* Footer: Running Text */
+        footer {
+            background-color: #0f0f1a;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            border-top: 2px solid #1f4068;
+        }
+
+        .ticker-title {
+            background-color: #e43f5a;
+            color: white;
+            padding: 0 20px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            font-size: 14px;
+            white-space: nowrap;
+            z-index: 2;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+        }
+
+        .ticker-marquee {
+            flex: 1;
+            overflow: hidden;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+        }
+
+        .ticker-text {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 25s linear infinite;
+            font-size: 16px;
+            color: #00b4d8;
+            font-weight: 500;
+        }
+
+        @keyframes marquee {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Aplikasi -->
+    <header>
+        <div class="header-title">
+            <!-- Ganti teks atau tambahkan tag <img> jika ada file logo -->
+            <div class="logo-placeholder">LOGO</div>
+            <h1>PAPAN INFORMASI DIGITAL</h1>
+        </div>
+        <div class="datetime" id="liveClock">Memuat Waktu...</div>
+    </header>
+
+    <!-- Konten Utama (Split Screen) -->
+    <main>
+        <!-- Sebelah Kiri: Tampilan Video YouTube -->
+        <div class="video-container">
+            <div class="video-wrapper">
+                <!-- Ganti ID video 'UsJ5FLSrVDA' dengan ID video YouTube yang Anda inginkan -->
+                <!-- autoplay=1 (otomatis putar), mute=1 (wajib senyap agar bisa otomatis putar di browser modern), loop=1 (mengulang) -->
+                <iframe src="https://www.youtube.com/embed/watch?v=UsJ5FLSrVDA" 
+                       referrerpolicy="strict-origin-when-cross-origin"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+</iframe>
+            </div>
+        </div>
+
+        <!-- Sebelah Kanan: Tampilan Pemberitahuan -->
+        <div class="notification-panel">
+            <div class="panel-title">Pengumuman & Informasi</div>
+            
+            <div class="card-list">
+                <!-- Kartu Informasi Penting -->
+                <div class="info-card important">
+                    <span class="card-tag tag-important">Penting</span>
+                    <h3>Pemeliharaan Sistem Aplikasi</h3>
+                    <p>Diberitahukan bahwa sistem administrasi akan mengalami pemeliharaan rutin pada hari Sabtu mulai pukul 22.00 WIB. Layanan akan terhenti sementara.</p>
+                </div>
+
+                <!-- Kartu Informasi Biasa -->
+                <div class="info-card">
+                    <span class="card-tag tag-info">Informasi</span>
+                    <h3>Jadwal Raker Bulanan</h3>
+                    <p>Rapat kerja bulanan untuk seluruh kepala divisi akan dilaksanakan besok pagi pukul 09.00 WIB di Ruang Aula Utama.</p>
+                </div>
+
+                <!-- Kartu Informasi Tambahan -->
+                <div class="info-card">
+                    <span class="card-tag tag-info">Kegiatan</span>
+                    <h3>Pembaruan Kebijakan Jam Kerja</h3>
+                    <p>Perhatikan aturan absensi terbaru yang berlaku mulai awal bulan depan. Pastikan melakukan check-in tepat waktu melalui sistem.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer: Running Text -->
+    <footer>
+        <div class="ticker-title">INFO TERKINI</div>
+        <div class="ticker-marquee">
+            <div class="ticker-text">
+                +++ Selamat Datang di Aplikasi Papan Pengumuman Digital • Tetap Jaga Protokol Kesehatan dan Keamanan di Lingkungan Kerja • Periksa Detail Informasi di Sisi Kanan Layar Anda +++
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript untuk Jam Live -->
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateString = now.toLocaleDateString('id-ID', options);
+            const timeString = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            
+            document.getElementById('liveClock').innerText = `${dateString} | ${timeString} WIB`;
+        }
+
+        // Jalankan jam setiap detik
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
