@@ -243,154 +243,23 @@
 </iframe>
             </div>
         </div>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Struktur Organisasi Bagian Umum dan Keuangan</title>
-    <style>
-        :root {
-            --primary-color: #1e3a8a;
-            --secondary-color: #0284c7;
-            --staff-color: #0f766e;
-            --line-color: #94a3b8;
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --card-width: 140px;
-            --card-height: 110px;
-        }
+        <!-- AWAL BAGIAN STRUKTUR ORGANISASI (Bisa langsung di-copypaste ke dalam halaman web) -->
+<div id="org-section-container">
+    <h2 class="org-title">Struktur Organisasi Bagian Umum dan Keuangan</h2>
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            margin: 0;
-            padding: 40px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow-x: auto;
-        }
-
-        h1 {
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 24px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Container Utama Chart */
-        .org-container {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 1220px; /* Lebar absolut terkunci untuk presisi garis */
-            margin: 0 auto;
-        }
-
-        /* Layer Kanvas Garis Komando (SVG) */
-        .svg-lines {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .svg-lines path {
-            fill: none;
-            stroke: var(--line-color);
-            stroke-width: 2px;
-            stroke-linecap: square;
-        }
-
-        /* Pembagian Baris Level */
-        .level-row {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Jarak antar level yang presisi */
-        .row-l1 { margin-bottom: 50px; }
-        .row-l2 { margin-bottom: 80px; gap: 260px; } /* Gap diatur agar as kotak pas dengan garis matematika */
-        .row-l3 { display: grid; grid-template-columns: repeat(7, 1fr); gap: 30px; }
-
-        /* Komponen Kotak Jabatan (Card Node) */
-        .node {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            padding: 12px;
-            width: var(--card-width);
-            height: var(--card-height);
-            text-align: center;
-            box-sizing: border-box;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .node:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-        }
-
-        .node.kasubbag { border-top: 5px solid var(--primary-color); }
-        .node.finance { border-top: 5px solid var(--secondary-color); }
-        .node.staff { border-top: 5px solid var(--staff-color); }
-
-        /* Foto Bulat Presisi */
-        .node img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: #e2e8f0;
-            object-fit: cover;
-            margin-bottom: 6px;
-            border: 2px solid #cbd5e1;
-        }
-
-        .node .role {
-            font-weight: bold;
-            font-size: 13px;
-            color: #1e293b;
-            margin-bottom: 2px;
-            white-space: nowrap;
-        }
-
-        .node .name {
-            font-size: 11px;
-            color: #64748b;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-    </style>
-</head>
-<body>
-
-    <h1>Struktur Organisasi Bagian Umum dan Keuangan</h1>
-
-    <div class="org-container">
-        
+    <div class="org-wrapper">
         <!-- CANVAS VECTOR GARIS KOMANDO (Matematika Koordinat Sempurna) -->
-        <svg class="svg-lines">
+        <svg class="svg-lines" viewBox="0 0 1220 390" preserveAspectRatio="xMidYMid meet">
             <!-- Jalur Atas: Dari Kasub Bag ke Bendahara & TSP -->
-            <!-- Turun dari Kasubbag (610,110) -> Cabang Horiz Y=135 -> Masuk Bendahara(410) & TSP(810) -->
             <path d="M 610,110 L 610,135 
                      M 410,135 L 810,135
                      M 410,135 L 410,160
                      M 810,135 L 810,160" />
 
             <!-- Jalur Poros Tengah: Menembus ke Blok Staf -->
-            <!-- Dari titik cabang atas Y=135 langsung turun lurus membelah ke area staf Y=310 -->
             <path d="M 610,135 L 610,310" />
 
             <!-- Jalur Bawah: Bentangan Pembagi untuk 7 Staf -->
-            <!-- Membentang dari as Staf 1 (70) ke as Staf 7 (1150) pada koordinat Y=310 -->
             <path d="M 70,310 L 1150,310" />
 
             <!-- Garis Vertikal Menusuk Masuk Pas ke Tengah 7 Kotak Staf -->
@@ -464,6 +333,122 @@
                 <div class="name">Nama Staf 7</div>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- STYLING KHUSUS (Dibatasi hanya untuk area struktur organisasi agar tidak merusak tema web utama Anda) -->
+<style>
+    #org-section-container {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8fafc;
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        box-sizing: border-box;
+        overflow-x: auto; /* Memunculkan scrollbar horizontal jika layar pembaca terlalu kecil */
+    }
+
+    #org-section-container .org-title {
+        color: #1e3a8a;
+        margin-bottom: 25px;
+        text-align: center;
+        font-size: 24px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 700;
+    }
+
+    #org-section-container .org-wrapper {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 1220px; /* Lebar absolut dikunci demi presisi garis matematika */
+        margin: 0 auto;
+    }
+
+    #org-section-container .svg-lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    #org-section-container .svg-lines path {
+        fill: none;
+        stroke: #94a3b8;
+        stroke-width: 2px;
+        stroke-linecap: square;
+    }
+
+    #org-section-container .level-row {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        position: relative;
+        z-index: 2;
+        box-sizing: border-box;
+    }
+
+    #org-section-container .row-l1 { margin-bottom: 50px; }
+    #org-section-container .row-l2 { margin-bottom: 80px; gap: 260px; } 
+    #org-section-container .row-l3 { display: grid; grid-template-columns: repeat(7, 1fr); gap: 30px; }
+
+    #org-section-container .node {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        padding: 12px;
+        width: 140px;
+        height: 110px;
+        text-align: center;
+        box-sizing: border-box;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    #org-section-container .node:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    }
+
+    #org-section-container .node.kasubbag { border-top: 5px solid #1e3a8a; }
+    #org-section-container .node.finance { border-top: 5px solid #0284c7; }
+    #org-section-container .node.staff { border-top: 5px solid #0f766e; }
+
+    #org-section-container .node img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #e2e8f0;
+        object-fit: cover;
+        margin-bottom: 6px;
+        border: 2px solid #cbd5e1;
+        display: inline-block;
+    }
+
+    #org-section-container .node .role {
+        font-weight: bold;
+        font-size: 13px;
+        color: #1e293b;
+        margin-bottom: 2px;
+        white-space: nowrap;
+    }
+
+    #org-section-container .node .name {
+        font-size: 11px;
+        color: #64748b;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+</style>
+<!-- AKHIR BAGIAN STRUKTUR ORGANISASI -->
+
     <!-- Sebelah Kanan: Tampilan Pemberitahuan -->
         <div class="notification-panel">
             <div class="panel-title">Pengumuman & Informasi</div>
