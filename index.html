@@ -243,7 +243,227 @@
 </iframe>
             </div>
         </div>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Struktur Organisasi Bagian Umum dan Keuangan</title>
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #0284c7;
+            --staff-color: #0f766e;
+            --line-color: #94a3b8;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --card-width: 140px;
+            --card-height: 110px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: auto;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Container Utama Chart */
+        .org-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 1220px; /* Lebar absolut terkunci untuk presisi garis */
+            margin: 0 auto;
+        }
+
+        /* Layer Kanvas Garis Komando (SVG) */
+        .svg-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .svg-lines path {
+            fill: none;
+            stroke: var(--line-color);
+            stroke-width: 2px;
+            stroke-linecap: square;
+        }
+
+        /* Pembagian Baris Level */
+        .level-row {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Jarak antar level yang presisi */
+        .row-l1 { margin-bottom: 50px; }
+        .row-l2 { margin-bottom: 80px; gap: 260px; } /* Gap diatur agar as kotak pas dengan garis matematika */
+        .row-l3 { display: grid; grid-template-columns: repeat(7, 1fr); gap: 30px; }
+
+        /* Komponen Kotak Jabatan (Card Node) */
+        .node {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 12px;
+            width: var(--card-width);
+            height: var(--card-height);
+            text-align: center;
+            box-sizing: border-box;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .node:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        .node.kasubbag { border-top: 5px solid var(--primary-color); }
+        .node.finance { border-top: 5px solid var(--secondary-color); }
+        .node.staff { border-top: 5px solid var(--staff-color); }
+
+        /* Foto Bulat Presisi */
+        .node img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #e2e8f0;
+            object-fit: cover;
+            margin-bottom: 6px;
+            border: 2px solid #cbd5e1;
+        }
+
+        .node .role {
+            font-weight: bold;
+            font-size: 13px;
+            color: #1e293b;
+            margin-bottom: 2px;
+            white-space: nowrap;
+        }
+
+        .node .name {
+            font-size: 11px;
+            color: #64748b;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Struktur Organisasi Bagian Umum dan Keuangan</h1>
+
+    <div class="org-container">
         
+        <!-- CANVAS VECTOR GARIS KOMANDO (Matematika Koordinat Sempurna) -->
+        <svg class="svg-lines">
+            <!-- Jalur Atas: Dari Kasub Bag ke Bendahara & TSP -->
+            <!-- Turun dari Kasubbag (610,110) -> Cabang Horiz Y=135 -> Masuk Bendahara(410) & TSP(810) -->
+            <path d="M 610,110 L 610,135 
+                     M 410,135 L 810,135
+                     M 410,135 L 410,160
+                     M 810,135 L 810,160" />
+
+            <!-- Jalur Poros Tengah: Menembus ke Blok Staf -->
+            <!-- Dari titik cabang atas Y=135 langsung turun lurus membelah ke area staf Y=310 -->
+            <path d="M 610,135 L 610,310" />
+
+            <!-- Jalur Bawah: Bentangan Pembagi untuk 7 Staf -->
+            <!-- Membentang dari as Staf 1 (70) ke as Staf 7 (1150) pada koordinat Y=310 -->
+            <path d="M 70,310 L 1150,310" />
+
+            <!-- Garis Vertikal Menusuk Masuk Pas ke Tengah 7 Kotak Staf -->
+            <path d="M 70,310 L 70,340
+                     M 250,310 L 250,340
+                     M 430,310 L 430,340
+                     M 610,310 L 610,340
+                     M 790,310 L 790,340
+                     M 970,310 L 970,340
+                     M 1150,310 L 1150,340" />
+        </svg>
+
+        <!-- LEVEL 1: Kasub Bag -->
+        <div class="level-row row-l1">
+            <div class="node kasubbag">
+                <img src="https://placeholder.com" alt="Foto Kasub Bag">
+                <div class="role">Kasub Bag</div>
+                <div class="name">Nama Kasub Bag</div>
+            </div>
+        </div>
+
+        <!-- LEVEL 2: Bendahara (Kiri) & TSP (Kanan) -->
+        <div class="level-row row-l2">
+            <div class="node finance">
+                <img src="https://placeholder.com" alt="Foto Bendahara">
+                <div class="role">Bendahara</div>
+                <div class="name">Nama Bendahara</div>
+            </div>
+            <div class="node finance">
+                <img src="https://placeholder.com" alt="Foto TSP">
+                <div class="role">TSP</div>
+                <div class="name">Nama TSP</div>
+            </div>
+        </div>
+
+        <!-- LEVEL 3: Berjejer 7 Orang Staf -->
+        <div class="level-row row-l3">
+            <div class="node staff">
+                <img src="https://placeholder.com" alt="Staf 1">
+                <div class="role">Staf 1</div>
+                <div class="name">Nama Staf 1</div>
+            </div>
+            <div class="node staff">
+                <img src="https://placeholder.com" alt="Staf 2">
+                <div class="role">Staf 2</div>
+                <div class="name">Nama Staf 2</div>
+            </div>
+            <div class="node staff">
+                <img src="https://placeholder.com" alt="Staf 3">
+                <div class="role">Staf 3</div>
+                <div class="name">Nama Staf 3</div>
+            </div>
+            <div class="node staff">
+                <img src="https://placeholder.com" alt="Staf 4">
+                <div class="role">Staf 4</div>
+                <div class="name">Nama Staf 4</div>
+            </div>
+            <div class="node staff">
+                <img src="https://placeholder.com" alt="Staf 5">
+                <div class="role">Staf 5</div>
+                <div class="name">Nama Staf 5</div>
+            </div>
+            <div class="node staff">
+                <img src="https://placeholder.com" alt="Staf 6">
+                <div class="role">Staf 6</div>
+                <div class="name">Nama Staf 6</div>
+            </div>
+            <div class="node staff">
+                <img src="https://placeholder.com" alt="Staf 7">
+                <div class="role">Staf 7</div>
+                <div class="name">Nama Staf 7</div>
+            </div>
+        </div>
     <!-- Sebelah Kanan: Tampilan Pemberitahuan -->
         <div class="notification-panel">
             <div class="panel-title">Pengumuman & Informasi</div>
